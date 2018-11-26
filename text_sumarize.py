@@ -1,5 +1,5 @@
 from nltk.tokenize import sent_tokenize,word_tokenize
-from nltk.corpus import stopwords
+from Sastrawi.StopWordRemover.StopWordRemoverFactory import StopWordRemoverFactory
 from collections import defaultdict
 from string import punctuation
 from heapq import nlargest
@@ -11,9 +11,10 @@ class FrequencySummarizer:
      Words that have a frequency term lower than min_cut 
      or higer than max_cut will be ignored.
     """
+    factory = StopWordRemoverFactory()
     self._min_cut = min_cut
     self._max_cut = max_cut 
-    self._stopwords = set(stopwords.words('indonesian') + list(punctuation))
+    self._stopwords = set(factory.get_stop_words() + list(punctuation))
 
   def _compute_frequencies(self, word_sent):
     """ 
